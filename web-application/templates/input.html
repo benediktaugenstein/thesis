@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <title>Language Identification & Transcription</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+      .button {
+        background-color: #009688; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        /*font-size: 16px;*/
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }
+
+      .button1 {
+        background-color: white; 
+        color: #009688; 
+        border: 2px solid #009688;
+        border-radius: 25px;
+      }
+
+      .button1:hover {
+        background-color: #009688;
+        color: white;
+      }
+      
+      p {
+        margin-left: 10px;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:600px;">
+      <div class="w3">
+        <div class="w3-container w3-card w3-white w3-margin-bottom" style="border-radius: 25px;">
+          <div class="w3-container">
+
+            <h2 class="w3-text-grey w3-padding-16" style="text-align:center;">Language Identification & Transcription</h2>
+            <hr>
+            <h3 class="w3-text-grey"><i class="fa fa-info fa-fw w3-text-teal"></i> Possible Languages</h3>
+            <p>
+              99 languages can be processed.<br>For a complete list of the identifyable languages, take a look at <a href="https://github.com/openai/whisper" target="_blank">this GitHub repository</a>.
+            </p>
+            <hr>
+
+            <form method="POST" name="myform" id="myform" action="" enctype="multipart/form-data">
+
+              <h3 class="w3-text-grey"><i class="fa fa-cloud-upload fa-fw w3-text-teal"></i> Audio Upload</h3>
+              <!--<input type="file" accept="audio/*" capture id="recorder" name="recorder"/>-->
+              <input type="file" accept=".m4a, .mp3, .wav" id="recorder" name="recorder"/>
+              <p> File specifications: 
+                <ul>
+                  <li>Successfully tested with ".m4a", ".mp3" and ".wav" files</li>
+                  <li>Can be any length, but for sufficient results and performance, 3-10 seconds are recommended</li>
+                </ul>
+                <!--Such files can easily be created using the program <a href="https://www.audacity.de/" target="_blank">Audacity</a>.-->
+              </p>
+
+              <hr>
+
+              <h3 class="w3-text-grey"><i class="fa fa-headphones fa-fw w3-text-teal"></i> Listen</h3>
+              <audio id="player" controls></audio>
+              
+              <script>
+                const recorder = document.getElementById('recorder');
+                const player = document.getElementById('player');
+
+                recorder.addEventListener('change', function(x){
+                  const file = x.target.files[0];
+                  const url = URL.createObjectURL(file);
+                  // Do something with the audio file.
+                  player.src = url;
+                  document.getElementById('submit_button').removeAttribute("disabled");
+                });
+              function loading() {
+                document.getElementById('lang_result_flask').innerHTML = '';
+                document.getElementById('text_result_flask').innerHTML = '';
+                document.getElementById('loading_paragraph').innerHTML = 'Loading...';
+                document.getElementById("myform").submit();
+              }
+              </script>
+
+              <hr>
+
+              <h3 class="w3-text-grey"><i class="fa fa-magic fa-fw w3-text-teal"></i> Identification & Transcription</h3>
+
+              <input type="submit" class="button button1" id="submit_button" value="Identify" onclick="loading();" disabled>
+
+            </form>
+            
+            <p id="lang_result_flask">{{ result|safe }}</p>
+            <p id="text_result_flask">{{ second_result|safe }}</p>
+            <p>{{ third_result|safe }}</p>
+            <p id="loading_paragraph"></p>
+            <hr>
+
+            <span style="float:right; font-size:70%; font-style:italic;">By Benedikt Augenstein</span>
+            <br></br>
+            <span id="f" hidden>{{ finish|safe }}</span>
+            <script>
+              if (document.getElementById('f').innerHTML == 'finished') {
+                var url = location.href;
+                location.href = "#recorder";   
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </body>
+  
+</html>
