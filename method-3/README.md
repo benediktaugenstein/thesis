@@ -20,7 +20,7 @@ The method which has been used to enhance the current language identification mo
 
 Essentially, the approach utilizes a combination of the penultimate layers of whisper and a tdnn model from Hugging Face by taking the output vectors of the penultimate layers of the models, combining them, and using these combined vectors from each audio file as input vectors for the new model which is to be trained. For training, validation and testing, the corresponding audio files from the FLEURS training, development and test dataset are to be used. Using this approach, the penultimate layers of the two models are essentially combined. Instead of the output layers of each model, the newly trained model acts as an output layer which can classify a combined input vector.
 
-![Overview of the architecture of the approach](/images/method.png "Method Architecture")
+![Overview of the architecture of the approach](images/method.png "Method Architecture")
 
 ## 3. Results
 For the development of this approach, the complete FLEURS dataset, containing 102 languages, has been used. In the training process of this newly trained model, the FLEURS train and development datasets have been used. For the evaluation of this approach, the FLEURS test dataset has been used. The results of this evaluation and a comparison to existing models can be seen below.
