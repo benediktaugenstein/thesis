@@ -25,7 +25,7 @@ Essentially, the approach utilizes a combination of the penultimate layers of wh
 ## 3. Results
 For the development of this approach, the complete FLEURS dataset, containing 102 languages, has been used. In the training process of this newly trained model, the FLEURS train and development datasets have been used. For the evaluation of this approach, the FLEURS test dataset has been used. The results of this evaluation and a comparison to existing models can be seen below.
 
-![Overview of the results of the approach](/images/results.png "Method Results")
+![Overview of the results of the approach](images/results.png "Method Results")
 
 ## 4. Notebooks
 The code for the replication of the method and it's results is split into four different jupyter notebooks in the "notebooks"-folder. 
